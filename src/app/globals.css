@@ -1,0 +1,142 @@
+/*
+CONFIGURATION DE BASE VENUE PAR DEFAUT AVEC CREATE NEXT APP
+*/
+
+/*@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+*/
+
+/* ========================== MES PROPRE CONFIGURATION TAILWIND ======================================*/
+/* ═══════════════════════════════════════════════════════════════════
+   TAILWIND CSS 4 — Import de base
+   ═══════════════════════════════════════════════════════════════════ */
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════════
+   TOKENS DE DESIGN — Clean & Bliss
+   Source de vérité unique (aligné sur DESIGN.md)
+   ═══════════════════════════════════════════════════════════════════ */
+@theme {
+
+  /* ─────────── COULEURS DE MARQUE ─────────── */
+  --color-brand-primary: #218CC4;
+  --color-brand-accent: #4FB5E0;
+  --color-brand-secondary: #8FC9DE;
+  --color-brand-surface: #F5FAFC;
+
+  /* ─────────── NOUVELLES COULEURS PREMIUM ─────────── */
+  /* Fond sombre profond pour footer et sections contrastées */
+  --color-footer-bg: #030617;
+  /* Liens du footer (gris-bleu clair, contraste AA sur fond sombre) */
+  --color-footer-link: #94A3B8;
+  /* Variante hover (plus claire) */
+  --color-footer-link-hover: #CBD5E1;
+  /* Texte principal sur fond sombre */
+  --color-footer-text: #E2E8F0;
+
+  /* ─────────── NEUTRES ─────────── */
+  --color-neutral-900: #0E2A38;
+  --color-neutral-700: #3D5A66;
+  --color-neutral-500: #6C8891;
+  --color-neutral-200: #D6E2E6;
+  --color-neutral-100: #E9F0F2;
+  --color-neutral-50: #F4F8F9;
+
+  /* ─────────── BASE ─────────── */
+  --color-base-white: #FFFFFF;
+  --color-base-black: #000000;
+
+  /* ─────────── ACTIONS & ÉTATS ─────────── */
+  --color-action-primary: #1D7BAC;
+  --color-action-primary-hover: #196C97;
+  --color-action-primary-active: #165F86;
+  --color-danger: #C53030;
+  --color-danger-hover: #AD2A2A;
+  --color-success: #1E7D4F;
+  --color-warning: #92400E;
+
+  /* ─────────── FONDS & BORDURES ─────────── */
+  --color-bg-page: #F4F8F9;
+  --color-bg-surface: #FFFFFF;
+  --color-bg-tint: #EBF6FB;
+  --color-border-default: #D6E2E6;
+  --color-border-subtle: #DCE9EE;
+
+  /* ─────────── TYPOGRAPHIE (VERSION PREMIUM) ─────────── */
+  --font-heading: var(--font-cormorant), Georgia, serif;
+  --font-body: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ─────────── RAYONS ─────────── */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ─────────── ESPACEMENTS ─────────── */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 10px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+  --space-3xl: 40px;
+  --space-4xl: 48px;
+  --space-5xl: 64px;
+  --space-6xl: 72px;
+  --space-7xl: 80px;
+  --space-8xl: 96px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   STYLES GLOBAUX DE BASE
+   ═══════════════════════════════════════════════════════════════════ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-page);
+  color: var(--color-neutral-900);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titres : toujours en Cormorant Garamond + légèrement resserrés */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  font-weight: 500;
+}
