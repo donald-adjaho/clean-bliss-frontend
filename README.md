@@ -97,26 +97,27 @@ yarn dev
 The app should be running at http://localhost:3000
 L'application devrait tourner sur http://localhost:3000
 
+```
 
-🔐 Environment Variables / Variables d'environnement
+### 🔐 Environment Variables / Variables d'environnement
 
 See .env.example for the full list. Never commit .env.local.
 Voir .env.example pour la liste complète. Ne jamais commiter .env.local.
 Variable	Description (EN / FR)
-NEXT_PUBLIC_WP_URL	WordPress base URL / URL de base de WordPress
-NEXT_PUBLIC_WP_GRAPHQL_URL	GraphQL endpoint / Endpoint GraphQL
-FAUST_SECRET_KEY	Faust.js secret from WP admin / Clé secrète Faust.js
-NODE_TLS_REJECT_UNAUTHORIZED	Dev only: disable SSL check / Dev uniquement
+**NEXT_PUBLIC_WP_URL**	WordPress base URL / URL de base de WordPress
+**NEXT_PUBLIC_WP_GRAPHQL_URL**	GraphQL endpoint / Endpoint GraphQL
+**FAUST_SECRET_KEY**	Faust.js secret from WP admin / Clé secrète Faust.js
+**NODE_TLS_REJECT_UNAUTHORIZED**	Dev only: disable SSL check / Dev uniquement
 
 
-📜 Available Scripts / Scripts disponibles
+### 📜 Available Scripts / Scripts disponibles
 Command / Commande	Description (EN / FR)
-yarn dev	Start dev server / Démarre le serveur de développement
-yarn build	Build for production / Build pour la production
-yarn start	Start production server / Démarre le serveur de production
-yarn lint	Run ESLint / Lance ESLint
+**yarn dev**	Start dev server / Démarre le serveur de développement
+**yarn build**	Build for production / Build pour la production
+**yarn start**	Start production server / Démarre le serveur de production
+**yarn lint**	Run ESLint / Lance ESLint
 
-📂 Project Structure / Structure du projet
+### 📂 Project Structure / Structure du projet
 
 clean-bliss-frontend/
 ├── public/                    # Static assets / Assets statiques
@@ -141,7 +142,7 @@ clean-bliss-frontend/
 └── tsconfig.json
 
 
-🎨 Design System / Design system
+### 🎨 Design System / Design system
 
 All design tokens (colors, typography, spacing, radii) are declared in src/app/globals.css using Tailwind CSS 4's @theme directive.
 
@@ -158,7 +159,7 @@ Key tokens / Tokens clés :
     --font-body — Manrope
 
 
-🚧 Project Status / Statut du projet
+### 🚧 Project Status / Statut du projet
 
     ✅ Done / Terminé
 
@@ -182,7 +183,7 @@ Key tokens / Tokens clés :
 
     Homepage sections (Hero, Categories, Best Sellers, ...)
 
-📅 Planned / Prévu
+### 📅 Planned / Prévu
 
     Shop page with filters
 
@@ -200,7 +201,7 @@ Key tokens / Tokens clés :
 
 
 
-👤 Author / Auteur
+### 👤 Author / Auteur
 
 Donald Adjaho
 Web Developer — Cotonou, Benin
@@ -212,7 +213,7 @@ Développeur Web — Cotonou, Bénin
 
 
 
-📄 License / Licence
+### 📄 License / Licence
 
 EN · Proprietary — All rights reserved. This project is being developed for Clean & Bliss.
 FR · Propriétaire — Tous droits réservés. Ce projet est en cours de développement pour Clean & Bliss.
