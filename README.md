@@ -1,219 +1,557 @@
-# Clean & Bliss — Headless Storefront
+<div align="center">
 
-> **EN** · Headless e-commerce storefront for **Clean & Bliss**, a Beninese lifestyle brand blending fine perfumery and high-performance home care from Cotonou.
->
-> **FR** · Vitrine e-commerce headless pour **Clean & Bliss**, une marque béninoise qui allie parfumerie fine et produits d'entretien haute performance, basée à Cotonou.
+# Clean &amp; Bliss
 
-[![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
-[![WordPress](https://img.shields.io/badge/WordPress-Headless-21759B?logo=wordpress)](https://wordpress.org/)
-[![WooCommerce](https://img.shields.io/badge/WooCommerce-9-96588A?logo=woocommerce)](https://woocommerce.com/)
+### Vitrine e-commerce **headless** — Next.js 16 × WordPress / WooCommerce
 
----
+<p>
+  <em>Parfumerie fine, bougies artisanales, senteurs d'ambiance et soins de la maison.<br/>
+  Conçu et développé à Cotonou, Bénin.</em>
+</p>
 
-## 📖 Overview / Aperçu
+<p>
+  <img src="assets/clean-bliss-accueil-tablette-01-hero.webp" width="620" alt="Page d'accueil Clean & Bliss sur tablette — hero" />
+</p>
 
-**EN** · Clean & Bliss is a Cotonou-based brand offering four product families: fine perfumes, artisan candles, home fragrances, and household cleaning products. This project delivers a modern headless e-commerce experience — combining a WordPress/WooCommerce backend with a Next.js frontend — designed for speed, elegance, and full editorial control.
+[![Next.js](https://img.shields.io/badge/Next.js-16.3-black?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19.2-087EA4?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![WordPress](https://img.shields.io/badge/WordPress-Headless-21759B?logo=wordpress&logoColor=white)](https://wordpress.org/)
+[![WooCommerce](https://img.shields.io/badge/WooCommerce-9-96588A?logo=woocommerce&logoColor=white)](https://woocommerce.com/)
+[![GraphQL](https://img.shields.io/badge/GraphQL-WooGraphQL-E10098?logo=graphql&logoColor=white)](https://www.wpgraphql.com/)
+[![License](https://img.shields.io/badge/Licence-Propri%C3%A9taire-lightgrey)](#licence)
 
-**FR** · Clean & Bliss est une marque basée à Cotonou qui propose quatre familles de produits : parfums fins, bougies artisanales, senteurs d'ambiance et produits d'entretien ménager. Ce projet met en place une expérience e-commerce headless moderne — associant un backend WordPress/WooCommerce à un frontend Next.js — pensée pour la performance, l'élégance et le contrôle éditorial total.
-
----
-
-## 🏗️ Architecture
-
-**EN** · A **headless** setup: WordPress serves as the content and commerce backend (via GraphQL), while Next.js delivers the public-facing storefront.
-
-**FR** · Une architecture **headless** : WordPress sert de backend pour le contenu et le commerce (via GraphQL), tandis que Next.js délivre la vitrine publique.
-
-┌─────────────────────────────────────────────┐
-│ WordPress + WooCommerce (Backend) │
-│ · Products, categories, tags │
-│ · Orders, customers, payments │
-│ · Editorial content (Pods fields) │
-└──────────────────┬──────────────────────────┘
-│ WPGraphQL / REST API
-▼
-┌─────────────────────────────────────────────┐
-│ Next.js + Faust.js (Frontend) │
-│ · Pages, sections, animations │
-│ · Cart (CoCart), auth (JWT) │
-└─────────────────────────────────────────────┘
-
+</div>
 
 ---
 
-## 🛠️ Tech Stack / Stack technique
+## Sommaire
+
+| # | Section | Contenu |
+|:-:|:--|:--|
+| 1 | [Aperçu](#aperçu) | Le projet en quelques lignes |
+| 2 | [Pourquoi le headless ?](#pourquoi-le-headless-) | Objectif et logique de l'architecture |
+| 3 | [Architecture](#architecture) | Schémas backend / frontend / flux de données |
+| 4 | [Workflow de conception](#workflow-de-conception) | Les 10 étapes, de Figma au déploiement |
+| 5 | [Aperçu visuel](#aperçu-visuel) | Captures desktop, tablette et mobile |
+| 6 | [Stack technique](#stack-technique) | Frontend, backend, outillage |
+| 7 | [Démarrage rapide](#démarrage-rapide) | Installation et lancement |
+| 8 | [Variables d'environnement](#variables-denvironnement) | Configuration |
+| 9 | [Scripts](#scripts-disponibles) | Commandes du projet |
+| 10 | [Structure du projet](#structure-du-projet) | Arborescence commentée |
+| 11 | [Design system](#design-system) | Tokens et principes visuels |
+| 12 | [État d'avancement](#état-davancement) | Ce qui est livré, en cours, prévu |
+| 13 | [Auteur](#auteur) | Contact |
+
+---
+
+## Aperçu
+
+**Clean & Bliss** est une maison béninoise qui réunit deux univers complémentaires : la **parfumerie fine** (eaux de parfum, brumes, bougies parfumées) et les **soins de la maison** (nettoyants écologiques, désodorisants, diffuseurs, déodorants corporels).
+
+Ce dépôt contient uniquement la **vitrine publique** — l'interface que voient les clientes et clients. Le catalogue, les stocks, les commandes et les contenus éditoriaux restent gérés dans WordPress. Le frontend ne fait que **lire** ces données via GraphQL et les mettre en scène.
+
+> **Le résultat recherché :** un site rapide, élégant, entièrement en français, pensé pour le mobile et les connexions réelles de Cotonou — sans sacrifier l'autonomie éditoriale de l'équipe.
+
+---
+
+## Pourquoi le headless ?
+
+### Le problème
+
+Quand une entreprise grandit, son catalogue grandit avec elle : nouvelles familles de produits, nouvelles langues, nouvelles pages éditoriales, nouvelles campagnes. Sur un site **monolithique** (un thème WordPress qui affiche tout), chaque évolution devient un chantier :
+
+- le design et le contenu sont **imbriqués** dans le même thème ;
+- la moindre refonte visuelle menace de casser le back-office ;
+- les performances se dégradent à mesure que le catalogue et les extensions s'accumulent ;
+- l'équipe marketing dépend du développeur pour publier, et le développeur dépend du marketing pour valider.
+
+Pour une marque qui vend **parfums, bougies, senteurs, nettoyants et déodorants** — cinq univers aux règles d'affichage très différentes — ce modèle atteint vite ses limites.
+
+### La réponse : découpler le contenu de sa présentation
+
+L'architecture **headless** sépare deux responsabilités qui n'ont aucune raison de vivre dans le même code :
+
+| Couche | Rôle | Technologie | Ce qu'elle possède |
+|:--|:--|:--|:--|
+| **Body** (backend) | Source de vérité métier | WordPress + WooCommerce | Produits, prix, stocks, commandes, clients, contenus |
+| **Head** (frontend) | Mise en scène de l'expérience | Next.js 16 (App Router) | Pages, composants, animations, SEO, performances |
+
+Le backend expose ses données via **GraphQL** (WPGraphQL + WooGraphQL). Le frontend les consomme côté serveur. Les deux mondes communiquent par un **contrat d'API typé**, pas par un thème partagé.
+
+### Ce que cela change concrètement
+
+| Bénéfice | Traduction sur ce projet |
+|:--|:--|
+| **Performance** | React Server Components + rendu statique/incrémental : la majorité des pages sont servies en HTML déjà rendu, sans attendre WooCommerce. |
+| **SEO** | Chaque produit dispose de ses métadonnées, d'un HTML complet et d'une URL propre (`/produit/[slug]`), lisibles par les robots sans exécuter de JavaScript. |
+| **Liberté de design** | L'interface est écrite en Tailwind v4 avec des tokens maison. Aucun thème WordPress à contourner, aucun `!important` défensif. |
+| **Autonomie éditoriale** | L'équipe publie, modifie un prix ou crée une catégorie dans WordPress ; un webhook revalide le cache Next.js et le site se met à jour. |
+| **Scalabilité** | Ajouter une famille de produits, une page éditoriale ou un canal (application mobile, borne en boutique) ne demande pas de réécrire le backend. |
+| **Sécurité** | La base de données et l'administration WordPress ne sont jamais exposées au navigateur. Seul un endpoint GraphQL en lecture transite. |
+| **Séparation des équipes** | Le studio gère l'expérience ; la boutique gère le commerce. Les deux avancent sans se bloquer. |
+
+### Le cycle de publication
+
+```mermaid
+flowchart LR
+    E["Éditeur<br/>WordPress"] -->|Publie / met à jour| WP[("WooCommerce<br/>+ Pods")]
+    WP -->|Webhook signé| RH["Route Next.js<br/>/api/revalidate"]
+    RH -->|revalidatePath| NX["Cache Next.js<br/>ISR"]
+    NX -->|HTML frais| V(["Visiteurs"])
+    WP -.->|GraphQL| NX
+```
+
+> **Limites assumées.** Le headless n'est pas gratuit : il faut héberger deux systèmes, gérer l'invalidation du cache, surveiller deux environnements et maintenir un contrat GraphQL. Ces coûts sont acceptés ici parce que le catalogue est appelé à grandir et que l'expérience de marque est un argument de vente central.
+
+---
+
+## Architecture
+
+```mermaid
+flowchart TB
+    subgraph CLIENT[" "]
+        U(["Navigateur<br/>des clientes"])
+    end
+
+    subgraph FRONT["Frontend — Next.js 16"]
+        direction TB
+        RSC["React Server Components<br/>SSR · SSG · ISR"]
+        DS["Design System<br/>Tailwind v4 · tokens CSS"]
+        ANIM["Animations<br/>GSAP · Framer Motion · Swiper"]
+        RSC --> DS --> ANIM
+    end
+
+    subgraph BACK["Backend — WordPress"]
+        direction TB
+        WOO["WooCommerce<br/>Produits · Variations · Stocks · Commandes"]
+        PODS["Pods<br/>Champs éditoriaux & médias"]
+        GQL["WPGraphQL + WooGraphQL<br/>Endpoint /graphql"]
+        AUTH["JWT Auth · CoCart<br/>Comptes & panier"]
+        WOO --> GQL
+        PODS --> GQL
+        AUTH --> GQL
+    end
+
+    U -->|HTTPS| FRONT
+    RSC -->|Requêtes typées| GQL
+    GQL -.->|JSON| RSC
+```
+
+### Flux d'une fiche produit
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as Navigateur
+    participant N as Next.js (RSC)
+    participant G as WPGraphQL
+    participant W as WordPress / WooCommerce
+
+    U->>N: GET /produit/eau-de-parfum-rose
+    N->>N: Vérifie le cache ISR
+    alt Cache absent ou expiré
+        N->>G: query ProductBySlug
+        G->>W: Lecture produit, variations, avis, liés
+        W-->>G: Données métier
+        G-->>N: Réponse JSON
+        N->>N: Rendu HTML + streaming RSC
+    end
+    N-->>U: Page complète, indexable, sans JS bloquant
+```
+
+### Points d'architecture notables
+
+| Sujet | Choix retenu |
+|:--|:--|
+| **Transport des données** | Un unique client `fetchGraphQL()` dans `src/lib/wp-graphql.js`, avec cache `revalidate: 3600`. |
+| **Accès aux données** | Toute lecture est centralisée dans `src/lib/api/*` — les composants n'écrivent jamais de requête GraphQL. |
+| **Secrets** | Aucune clé privée dans le bundle client. Les appels sensibles passent par des Route Handlers (`src/app/api/*`). |
+| **Invalidation** | Webhook WordPress → `POST /api/revalidate`, protégé par `REVALIDATE_SECRET`. |
+| **Images** | Optimisation `next/image`, domaines distants déclarés dans `next.config.ts`. |
+| **Composants** | Server Components par défaut ; `"use client"` réservé aux îlots interactifs. |
+
+---
+
+## Workflow de conception
+
+Ce projet a été mené avec une méthode reproductible : **la maquette devient une spécification, la spécification devient du code**. Chaque étape produit un livrable qui sert d'entrée à la suivante.
+
+```mermaid
+flowchart TD
+    A["1 · Maquette Figma"] --> B["2 · Extraction des design tokens"]
+    B --> C["3 · DESIGN.md"]
+    C --> D["4 · GUIDE.md"]
+    D --> E["5 · Plan du site & arborescence"]
+    E --> F["6 · Backend WordPress + WooCommerce"]
+    F --> G["7 · WPGraphQL + WooGraphQL"]
+    G --> H["8 · Frontend Next.js"]
+    H --> I["9 · QA · accessibilité · responsive"]
+    I --> J["10 · Déploiement & revalidation"]
+
+    style A fill:#F3E8E2,stroke:#C4A08E,color:#0E2A38
+    style C fill:#E6F0F5,stroke:#218CC4,color:#0E2A38
+    style D fill:#E6F0F5,stroke:#218CC4,color:#0E2A38
+    style H fill:#E8F4EC,stroke:#4C9A6A,color:#0E2A38
+    style J fill:#FDF3D8,stroke:#C9A227,color:#0E2A38
+```
+
+| # | Étape | Ce qui est produit | Outils |
+|:-:|:--|:--|:--|
+| **1** | **Maquette Figma** | Écrans desktop, tablette et mobile des 5 univers, de la boutique, de la fiche produit et des pages éditoriales. | Figma |
+| **2** | **Extraction des tokens** | Couleurs, échelles typographiques, espacements, rayons, ombres, durées et courbes d'animation, relevés puis normalisés. | Figma, plugin de tokens |
+| **3** | **`DESIGN.md`** | Dictionnaire du design system : rôle de chaque token, états des composants, règles d'usage. Sert de **source de vérité visuelle** aux agents IA. | Markdown |
+| **4** | **`GUIDE.md`** | Spécification page par page : structure des sections, copywriting, contenus attendus, comportements. Sert de **source de vérité fonctionnelle**. | Markdown |
+| **5** | **Plan du site** | Arborescence des routes, navigation, relations entre pages, règles de nommage des URL. | Markdown, diagrammes |
+| **6** | **Backend WordPress** | Installation, WooCommerce, création de la boutique, catalogue produits (5 familles), variations, stocks, zones et tarifs de livraison, moyens de paiement locaux. | WordPress, WooCommerce, Local by Flywheel |
+| **7** | **Couche GraphQL** | Installation et configuration de WPGraphQL, WooGraphQL, CoCart et JWT Auth ; exposition des champs Pods ; résolveurs custom ; tests dans GraphiQL. | WPGraphQL, WooGraphQL, PHP |
+| **8** | **Frontend Next.js** | Design tokens dans `globals.css`, primitives UI, layout, sections de la page d'accueil, boutique filtrable, fiche produit, panier. | Next.js 16, Tailwind v4, GSAP |
+| **9** | **Qualité** | Vérification TypeScript, ESLint, build de production, parcours Playwright aux largeurs 390 / 768 / 1440 / 1920 px, audit a11y et `prefers-reduced-motion`. | `tsc`, ESLint, Playwright |
+| **10** | **Mise en ligne** | Build, hébergement, variables d'environnement, webhook de revalidation, surveillance. | Vercel / Node, WordPress |
+
+### La documentation comme contrat
+
+Le projet est piloté par cinq documents qui évitent les décisions improvisées :
+
+| Document | Rôle | Autorité |
+|:--|:--|:--|
+| `src/app/globals.css` | Implémentation réelle des tokens | **1 — valeurs CSS utilisables** |
+| `DESIGN.md` | Comment styler | **2 — règles visuelles** |
+| `GUIDE.md` | Quoi construire | **3 — règles fonctionnelles** |
+| `ANIMATIONS.md` | Comment animer | **4 — règles de mouvement** |
+| `AGENTS.md` | Comment travailler | **Cadre opérationnel** |
+
+> **Principe :** aucune couleur, aucun espacement, aucun comportement n'est inventé. Si une valeur manque, on l'arbitre et on l'ajoute au document avant de coder.
+
+---
+
+## Aperçu visuel
+
+Captures réalisées sur l'application en développement, aux formats **desktop**, **tablette** et **mobile**.
+
+### Accueil — desktop
+
+<details>
+<summary><b>Dérouler la page d'accueil complète (1920 px)</b></summary>
+<br/>
+
+<img src="assets/clean-bliss-accueil-desktop-fullpage.webp" width="100%" alt="Page d'accueil Clean & Bliss — capture desktop pleine hauteur" />
+
+</details>
+
+### Accueil — tablette
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/clean-bliss-accueil-tablette-01-hero.webp" width="330" alt="Accueil tablette — hero et navigation" /><br/>
+      <sub><b>01</b> · Hero &amp; navigation</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/clean-bliss-accueil-tablette-02-categories.webp" width="330" alt="Accueil tablette — catégories phares" /><br/>
+      <sub><b>02</b> · Catégories phares</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/clean-bliss-accueil-tablette-03-meilleures-ventes.webp" width="330" alt="Accueil tablette — meilleures ventes" /><br/>
+      <sub><b>03</b> · Meilleures ventes</sub>
+    </td>
+    <td align="center">
+      <img src="assets/clean-bliss-accueil-tablette-04-offres-compte-a-rebours.webp" width="330" alt="Accueil tablette — offres et compte à rebours" /><br/>
+      <sub><b>04</b> · Offres &amp; compte à rebours</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/clean-bliss-accueil-tablette-05-selections.webp" width="330" alt="Accueil tablette — sélections éditoriales" /><br/>
+      <sub><b>05</b> · Sélections éditoriales</sub>
+    </td>
+    <td align="center">
+      <img src="assets/clean-bliss-accueil-tablette-06-cta-boutique.webp" width="330" alt="Accueil tablette — invitation en boutique" /><br/>
+      <sub><b>06</b> · Invitation en boutique</sub>
+    </td>
+  </tr>
+</table>
+
+### Accueil — mobile
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/clean-bliss-accueil-mobile-01-cta-boutique.webp" width="220" alt="Accueil mobile — invitation à venir en boutique" /><br/>
+      <sub><b>01</b> · Invitation en boutique</sub>
+    </td>
+    <td align="center" width="50%">
+      <em>Le reste de l'accueil mobile reprend les mêmes sections,<br/>réorganisées en une colonne.</em>
+    </td>
+  </tr>
+</table>
+
+### Boutique — desktop
+
+<details>
+<summary><b>Dérouler la page boutique complète (1920 px)</b></summary>
+<br/>
+
+<img src="assets/clean-bliss-boutique-desktop-fullpage.webp" width="100%" alt="Page boutique Clean & Bliss — capture desktop pleine hauteur" />
+
+</details>
+
+### Boutique — tablette
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="assets/clean-bliss-boutique-tablette-01-hero.webp" width="240" alt="Boutique tablette — en-tête et premiers produits" /><br/>
+      <sub><b>01</b> · En-tête &amp; grille</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/clean-bliss-boutique-tablette-02-grille.webp" width="240" alt="Boutique tablette — grille produits" /><br/>
+      <sub><b>02</b> · Grille produits</sub>
+    </td>
+    <td align="center" width="34%">
+      <img src="assets/clean-bliss-boutique-tablette-03-pagination.webp" width="240" alt="Boutique tablette — pagination" /><br/>
+      <sub><b>03</b> · Pagination</sub>
+    </td>
+  </tr>
+</table>
+
+### Boutique — mobile
+
+<table>
+  <tr>
+    <td align="center" width="33%">
+      <img src="assets/clean-bliss-boutique-mobile-01-hero.webp" width="190" alt="Boutique mobile — hero" /><br/>
+      <sub><b>01</b> · Hero</sub>
+    </td>
+    <td align="center" width="33%">
+      <img src="assets/clean-bliss-boutique-mobile-02-grille.webp" width="190" alt="Boutique mobile — grille deux colonnes" /><br/>
+      <sub><b>02</b> · Grille 2 colonnes</sub>
+    </td>
+    <td align="center" width="34%">
+      <img src="assets/clean-bliss-boutique-mobile-03-grille-charger-plus.webp" width="190" alt="Boutique mobile — chargement progressif" /><br/>
+      <sub><b>03</b> · Charger plus</sub>
+    </td>
+  </tr>
+</table>
+
+### Footer — mobile
+
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/clean-bliss-footer-mobile-01.webp" width="220" alt="Footer mobile — marque et navigation" /><br/>
+      <sub><b>01</b> · Marque &amp; navigation</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/clean-bliss-footer-mobile-02.webp" width="220" alt="Footer mobile — newsletter, paiements et mentions" /><br/>
+      <sub><b>02</b> · Newsletter, paiements &amp; mentions</sub>
+    </td>
+  </tr>
+</table>
+
+---
+
+## Stack technique
 
 ### Frontend
-- **Next.js 16** — App Router, React Server Components
-- **TypeScript** — Type safety
-- **Tailwind CSS 4** — Utility-first CSS with custom design tokens
-- **Faust.js** — WordPress headless integration
-- **GSAP** — Scroll-based and timeline animations
-- **Swiper** — Carousels
-- **Radix UI** — Accessible component primitives
+
+| Technologie | Version | Usage |
+|:--|:--|:--|
+| **Next.js** | 16.3 | App Router, Server Components, ISR, Route Handlers |
+| **React** | 19.2 | Rendu concurrent, streaming |
+| **TypeScript** | 5 | Typage strict de bout en bout |
+| **Tailwind CSS** | 4 | Utilitaires générés depuis les tokens `@theme` |
+| **GSAP** | 3.15 | Révélations au scroll, timelines, `ScrollTrigger` |
+| **Framer Motion** | 13 | Micro-interactions, transitions d'état |
+| **Swiper** | 14 | Carrousels tactiles |
+| **Radix UI** | — | Primitives accessibles (Dialog, Accordion, Radio, Dropdown) |
+| **Zustand** | 5 | État client (panier, wishlist, préférences) |
+| **TanStack Query** | 5 | Cache et synchronisation côté client |
+| **Apollo Client** | 3 | Client GraphQL côté client |
+| **Faust.js** | 3.4 | Outillage WordPress headless et authentification |
+| **React Hook Form + Zod** | — | Formulaires et validation |
+| **Tabler Icons** | 3.49 | Iconographie SVG |
 
 ### Backend
-- **WordPress** — Headless CMS
-- **WooCommerce** — Product & order management
-- **WPGraphQL** + **WooGraphQL** — GraphQL API
-- **Pods** — Custom fields (media, settings)
-- **CoCart** — Stateless cart API
-- **JWT Authentication** — Customer authentication
+
+| Technologie | Usage |
+|:--|:--|
+| **WordPress** | CMS headless, pages éditoriales, médiathèque |
+| **WooCommerce** | Catalogue, variations, stocks, commandes, livraison |
+| **WPGraphQL** | Schéma GraphQL du contenu WordPress |
+| **WooGraphQL** | Extension du schéma aux entités WooCommerce |
+| **Pods** | Champs personnalisés (accueil, à propos, coordonnées) |
+| **CoCart** | API panier sans session serveur |
+| **JWT Auth** | Authentification des clientes |
+| **Local by Flywheel** | Environnement WordPress local (`clean-and-bliss.local`) |
 
 ---
 
-## 📦 Getting Started / Installation
+## Démarrage rapide
 
-### Prerequisites / Prérequis
+### Prérequis
 
-- **Node.js** ≥ 20
-- **Yarn** ≥ 1.22
-- **WordPress** instance running (with the plugins listed above)
+| Outil | Version minimale |
+|:--|:--|
+| Node.js | ≥ 20 |
+| Yarn | ≥ 1.22 |
+| WordPress | Instance accessible avec WPGraphQL + WooGraphQL |
 
-### Setup / Installation
+### Installation
 
 ```bash
-# 1. Clone the repository
-# 1. Clone le dépôt
+# 1 · Cloner le dépôt
 git clone https://github.com/donald-adjaho/clean-bliss-frontend.git
 cd clean-bliss-frontend
 
-# 2. Install dependencies
-# 2. Installe les dépendances
+# 2 · Installer les dépendances
 yarn install
 
-# 3. Configure environment variables
-# 3. Configure les variables d'environnement
+# 3 · Créer le fichier d'environnement
 cp .env.example .env.local
-# Edit .env.local with your own values
-# Édite .env.local avec tes propres valeurs
+# puis renseigner les URL WordPress et GraphQL
 
-# 4. Start the development server
-# 4. Démarre le serveur de développement
+# 4 · Lancer le serveur de développement
 yarn dev
-
-The app should be running at http://localhost:3000
-L'application devrait tourner sur http://localhost:3000
-
 ```
 
-### 🔐 Environment Variables / Variables d'environnement
+L'application est disponible sur **[http://localhost:3000](http://localhost:3000)**.
 
-See .env.example for the full list. Never commit .env.local.
-Voir .env.example pour la liste complète. Ne jamais commiter .env.local.
-Variable	Description (EN / FR)
-**NEXT_PUBLIC_WP_URL**	WordPress base URL / URL de base de WordPress
-**NEXT_PUBLIC_WP_GRAPHQL_URL**	GraphQL endpoint / Endpoint GraphQL
-**FAUST_SECRET_KEY**	Faust.js secret from WP admin / Clé secrète Faust.js
-**NODE_TLS_REJECT_UNAUTHORIZED**	Dev only: disable SSL check / Dev uniquement
+> **Note** — Le backend WordPress doit être démarré en parallèle. En local, il est servi par Local by Flywheel sur `https://clean-and-bliss.local`. Le certificat auto-signé impose `NODE_TLS_REJECT_UNAUTHORIZED=0` **en développement uniquement**.
 
+---
 
-### 📜 Available Scripts / Scripts disponibles
-Command / Commande	Description (EN / FR)
-**yarn dev**	Start dev server / Démarre le serveur de développement
-**yarn build**	Build for production / Build pour la production
-**yarn start**	Start production server / Démarre le serveur de production
-**yarn lint**	Run ESLint / Lance ESLint
+## Variables d'environnement
 
-### 📂 Project Structure / Structure du projet
+| Variable | Requise | Description |
+|:--|:--:|:--|
+| `NEXT_PUBLIC_WP_URL` | Oui | URL de base de WordPress |
+| `NEXT_PUBLIC_WP_GRAPHQL_URL` | Oui | Endpoint GraphQL (`…/graphql`) |
+| `FAUST_SECRET_KEY` | Oui | Clé secrète Faust.js (WP → Réglages → Faust.js) |
+| `REVALIDATE_SECRET` | Oui | Secret partagé du webhook `/api/revalidate` |
+| `NODE_TLS_REJECT_UNAUTHORIZED` | Dev | `0` pour accepter le certificat local auto-signé |
 
+> Ne jamais commiter `.env.local`. Le modèle `.env.example` est conservé comme documentation.
+
+---
+
+## Scripts disponibles
+
+| Commande | Effet |
+|:--|:--|
+| `yarn dev` | Serveur de développement (Turbopack) |
+| `yarn build` | Build de production |
+| `yarn start` | Serveur de production |
+| `yarn lint` | Analyse ESLint |
+| `npx tsc --noEmit` | Vérification des types sans émission |
+
+---
+
+## Structure du projet
+
+```text
 clean-bliss-frontend/
-├── public/                    # Static assets / Assets statiques
+├── assets/                      # Captures d'écran du README
+├── public/                      # Actifs statiques publics
 ├── src/
-│   ├── app/                   # Next.js App Router
-│   │   ├── fonts/             # Local fonts / Polices locales
-│   │   ├── globals.css        # Global styles + design tokens
-│   │   ├── layout.tsx         # Root layout
-│   │   └── page.tsx           # Home page / Page d'accueil
-│   ├── components/            # React components / Composants React
-│   │   ├── layout/            # Header, Footer
-│   │   ├── header/            # Header sub-components
-│   │   ├── ui/                # Reusable UI primitives
-│   │   ├── product/           # Product-related components
-│   │   └── sections/          # Homepage sections
-│   └── lib/                   # Utilities / Utilitaires
-│       └── wp-graphql.js      # GraphQL client / Client GraphQL
-├── .env.example               # Env template / Template d'environnement
-├── .gitignore
+│   ├── app/                     # App Router
+│   │   ├── api/revalidate/      # Webhook d'invalidation du cache
+│   │   ├── boutique/            # Catalogue filtrable + skeleton
+│   │   ├── produit/[slug]/      # Fiche produit + loading + 404
+│   │   ├── fonts/               # Cormorant Garamond & Manrope
+│   │   ├── globals.css          # Design tokens (@theme Tailwind v4)
+│   │   ├── layout.tsx           # Layout racine
+│   │   ├── page.tsx             # Page d'accueil
+│   │   └── providers.tsx        # Providers client
+│   ├── components/
+│   │   ├── header/              # Bandeau, recherche, navigation, actions
+│   │   ├── footer/              # Marque, colonnes, newsletter, paiements
+│   │   ├── sections/            # Sections modulaires de l'accueil
+│   │   ├── shop/                # Filtres, tri, grille, pagination
+│   │   ├── product/             # Galerie, buybox, détails, FAQ, avis, liés
+│   │   ├── shared/              # Cartes produit, carrousels, révélation
+│   │   ├── ui/                  # Primitives (Button, Input, Badge, Drawer…)
+│   │   └── icons/               # Icônes SVG sur mesure
+│   ├── hooks/                   # useReveal, useInView, useReducedMotion…
+│   └── lib/
+│       ├── api/                 # Lectures WooCommerce typées
+│       ├── content/             # Contenus éditoriaux statiques
+│       ├── queries/             # Requêtes GraphQL de l'accueil
+│       ├── cn.ts                # Fusion de classes
+│       ├── format.ts            # Prix FCFA, dates, entités HTML
+│       ├── shop-filters.ts      # Sérialisation des filtres d'URL
+│       └── wp-graphql.js        # Client GraphQL unique
+├── AGENTS.md                    # Cadre de travail des agents IA
+├── next.config.ts               # Domaines d'images, options Next
 ├── package.json
-├── tailwind.config.ts
 └── tsconfig.json
+```
+
+---
+
+## Design system
+
+L'ensemble du style repose sur des **tokens CSS** déclarés une seule fois dans `src/app/globals.css` via la directive `@theme` de Tailwind v4. Aucun composant n'utilise de valeur brute.
+
+| Famille | Exemples de tokens | Usage |
+|:--|:--|:--|
+| **Couleurs de marque** | `--color-brand-primary`, `--color-brand-accent` | Identité, accents |
+| **Couleurs d'action** | `--color-action-primary`, `--color-action-on-primary` | Boutons, liens, états actifs |
+| **Surfaces** | `--color-bg-surface`, `--color-bg-tint`, `--color-footer-bg` | Fonds et contrastes |
+| **Texte** | `--color-text-primary`, `--color-text-secondary`, `--color-text-muted` | Hiérarchie de lecture |
+| **Typographie** | `--font-heading` (Cormorant Garamond), `--font-body` (Manrope) | Titres expressifs, texte lisible |
+| **Échelles de texte** | `text-h1` → `text-h6`, `text-body-l/m/s` | Cohérence éditoriale |
+| **Espacements** | `--space-2xs` → `--space-5xl` | Rythme vertical et horizontal |
+| **Rayons & ombres** | `--radius-sm/md/lg`, `--shadow-card`, `--shadow-card-hover` | Profondeur discrète |
+| **Mouvement** | `--duration-fast/base/slow`, courbes d'easing | Animations sobres et cohérentes |
+
+**Règles non négociables :**
+
+- Tokens uniquement — pas de `#hex`, `px` arbitraires ni styles inline bruts.
+- Primitives réutilisables dans `src/components/ui/` — jamais de bouton ou champ recodé localement.
+- Accessibilité : contraste WCAG AA, `aria-label` sur les icônes, focus visible, respect de `prefers-reduced-motion`.
+- Interface en français ; code, variables et commits en anglais.
+
+---
+
+## État d'avancement
+
+| Périmètre | Statut |
+|:--|:--:|
+| Backend WordPress + WooCommerce (catalogue, stocks, livraison) | ✅ |
+| WPGraphQL + WooGraphQL + CoCart + JWT | ✅ |
+| Champs Pods exposés en GraphQL | ✅ |
+| Design tokens & primitives UI | ✅ |
+| Header (bandeau, recherche, navigation, actions) | ✅ |
+| Footer (marque, colonnes, newsletter, paiements) | ✅ |
+| Page d'accueil — 13 sections | ✅ |
+| Boutique — filtres, tri, pagination | ✅ |
+| Fiche produit — galerie, buybox, FAQ, avis, recommandations | ✅ |
+| Panier & drawer panier | 🚧 |
+| Tunnel de commande (Mobile Money, paiement à la livraison) | ⏳ |
+| Espace client (commandes, adresses, profil) | ⏳ |
+| Pages éditoriales (À propos, Contact, Publications, 404) | ⏳ |
+| Wishlist, comparateur, recherche instantanée | ⏳ |
+
+**Légende :** ✅ livré · 🚧 en cours · ⏳ planifié
+
+---
+
+## Auteur
+
+**Donald Adjaho** — conception, développement frontend et intégration headless.
+
+| Canal | Lien |
+|:--|:--|
+| GitHub | [@donald-adjaho](https://github.com/donald-adjaho) |
+| Email | [donaldadjaho@yahoo.com](mailto:donaldadjaho@yahoo.com) |
+| Projet | Clean & Bliss — Cotonou, Bénin |
 
 
-### 🎨 Design System / Design system
-
-All design tokens (colors, typography, spacing, radii) are declared in src/app/globals.css using Tailwind CSS 4's @theme directive.
-
-Tous les tokens de design (couleurs, typographie, espacements, rayons) sont déclarés dans src/app/globals.css via la directive @theme de Tailwind CSS 4.
-
-Key tokens / Tokens clés :
-
-    --color-brand-primary — Main brand color
-
-    --color-footer-bg — Dark footer background
-
-    --font-heading — Cormorant Garamond
-
-    --font-body — Manrope
-
-
-### 🚧 Project Status / Statut du projet
-
-    ✅ Done / Terminé
-
-    WordPress + WooCommerce backend
-
-    WPGraphQL + WooGraphQL + CoCart + JWT integration
-
-    Pods custom fields exposed in GraphQL (homepage media, about media, publications gallery)
-
-    Next.js + Faust.js + Tailwind 4 setup
-
-    Local fonts (Cormorant Garamond + Manrope)
-
-    GraphQL client + connection tested
-
-    🚧 In Progress / En cours
-
-    Header (announcement bar, logo, search, actions, navigation)
-
-    Footer
-
-    Homepage sections (Hero, Categories, Best Sellers, ...)
-
-### 📅 Planned / Prévu
-
-    Shop page with filters
-
-    Product detail page
-
-    Cart + Checkout
-
-    Customer account
-
-    Publications pages
-
-    About page
-
-    Contact page
-
-
-
-### 👤 Author / Auteur
-
-Donald Adjaho
-Web Developer — Cotonou, Benin
-Développeur Web — Cotonou, Bénin
-
-    GitHub: @donald-adjaho
-
-    Email: donaldadjaho@yahoo.com
-
-
-
-### 📄 License / Licence
-
-EN · Proprietary — All rights reserved. This project is being developed for Clean & Bliss.
-FR · Propriétaire — Tous droits réservés. Ce projet est en cours de développement pour Clean & Bliss.
+<div align="center">
+<br/>
+<sub>Conçu avec soin à Cotonou · Next.js × WordPress</sub>
+</div>
