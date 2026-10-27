@@ -1,69 +1,104 @@
-import Image from "next/image";
+/**
+ * EN: Homepage (Server Component) — assembles the homepage sections from
+ *     GUIDE.md § B.1. Data is fetched once on the server through
+ *     getHomepageData() and cached.
+ * FR: Page d'accueil (Server Component) — assemble les sections de l'accueil de
+ *     GUIDE.md § B.1. Les données sont récupérées une fois côté serveur via
+ *     getHomepageData() puis mises en cache.
+ *
+ * EN: Lot A — §1 Hero, §2 Nos Univers, §3 Meilleures ventes, §4 Nouveautés.
+ *     Lot B — §5 Offres, §6 Marquee, §7 Collections, §8 Pourquoi nous.
+ *     Lot C — §9 Témoignages, §10 Marques, §11 FAQ, §12 Benefits, §13 CTA visite.
+ * FR: Lot A — §1 Hero, §2 Nos Univers, §3 Meilleures ventes, §4 Nouveautés.
+ *     Lot B — §5 Offres, §6 Marquee, §7 Collections, §8 Pourquoi nous.
+ *     Lot C — §9 Témoignages, §10 Marques, §11 FAQ, §12 Benefits, §13 CTA visite.
+ */
 
-export default function Home() {
+import { getHomepageData } from "@/lib/queries/homepage";
+import { Hero } from "@/components/sections/Hero";
+import { Univers } from "@/components/sections/Univers";
+import { ProductCarouselSection } from "@/components/sections/ProductCarouselSection";
+import { OffersFlashSection } from "@/components/sections/OffersFlashSection";
+import { MarqueeTrends } from "@/components/sections/MarqueeTrends";
+import { CollectionsSection } from "@/components/sections/CollectionsSection";
+import { WhyUsSection } from "@/components/sections/WhyUsSection";
+import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { BrandsSection } from "@/components/sections/BrandsSection";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { BenefitsSection } from "@/components/sections/BenefitsSection";
+import { VisitCtaSection } from "@/components/sections/VisitCtaSection";
+
+export default async function Home() {
+  // EN: Single GraphQL round-trip for the whole page (cached 1h)
+  // FR: Un seul aller-retour GraphQL pour toute la page (mis en cache 1h)
+  const data = await getHomepageData();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main>
+      {/* §1 — Hero */}
+      <Hero image={data.allSettings.heroImage} />
+
+      {/* §2 — Nos Univers */}
+      <Univers categories={data.productCategories.nodes} />
+
+      {/* §3 — Meilleures ventes */}
+      <ProductCarouselSection
+        id="meilleures-ventes"
+        eyebrow="Meilleures ventes"
+        title="Adoré Par Notre Communauté"
+        description="Nos clients n'arrêtent pas d'en commander. Découvrez-les maintenant et passez votre première commande."
+        actionHref="/boutique"
+        actionLabel="Voir tous les produits"
+        products={data.bestSellers.nodes}
+        badge="bestSeller"
+      />
+
+      {/* §4 — Nouveautés */}
+      <ProductCarouselSection
+        id="nouveautes"
+        eyebrow="Incontournable"
+        title="Nouveautés"
+        description="Découvrez nos dernières tendances"
+        actionHref="/boutique?tag=nouveautes"
+        actionLabel="Voir tous les produits"
+        products={data.newArrivals.nodes}
+        badge="new"
+      />
+
+      {/* §5 — Offres exclusives du mois */}
+      <OffersFlashSection offers={data.offers.nodes} endDate={data.allSettings.offresEndDate} />
+
+      {/* §6 — Bandeau défilant */}
+      <MarqueeTrends />
+
+      {/* §7 — Collections thématiques */}
+      <CollectionsSection
+        selection1Image={data.allSettings.selection1Image}
+        selection2Image={data.allSettings.selection2Image}
+        selection3Image={data.allSettings.selection3Image}
+      />
+
+      {/* §8 — Pourquoi Clean & Bliss */}
+      <WhyUsSection image={data.allSettings.whyUsImage} />
+
+      {/* §9 — Témoignages (masqué tant qu'aucun avis) */}
+      <TestimonialsSection testimonials={data.testimonials} />
+
+      {/* §10 — Nos grandes marques */}
+      <BrandsSection />
+
+      {/* §11 — Foires aux questions */}
+      <FaqSection />
+
+      {/* §12 — Benefits / Services */}
+      <BenefitsSection />
+
+      {/* §13 — CTA visite boutique (+ vidéo) */}
+      <VisitCtaSection
+        address={data.allSettings.businessAdresse}
+        phone={data.allSettings.businessPhone}
+        video={data.allSettings.ctaVideo}
+      />
+    </main>
   );
 }
