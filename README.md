@@ -6,7 +6,7 @@
 
 <p>
   <em>Parfumerie fine, bougies artisanales, senteurs d'ambiance et soins de la maison.<br/>
-  Conçu et développé à Cotonou, Bénin.</em>
+  Projet Personnel dans le but de mettre en valeur les Produits d'une entreprise Commerciale au Bénin.</em>
 </p>
 
 <p>
@@ -553,5 +553,5 @@ L'ensemble du style repose sur des **tokens CSS** déclarés une seule fois dans
 
 <div align="center">
 <br/>
-<sub>Conçu avec soin à Cotonou · Next.js × WordPress</sub>
+<sub>Conçu avec soin · Next.js × WordPress</sub>
 </div>
