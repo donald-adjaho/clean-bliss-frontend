@@ -57,6 +57,16 @@ body {
   --color-footer-link-hover: #CBD5E1;
   /* Texte principal sur fond sombre */
   --color-footer-text: #E2E8F0;
+  /* Bordures du footer : brand-surface (#F5FAFC) à 30% d'opacité
+     EN: Footer hairlines — brand-surface at 30% opacity (social circles,
+         payment badges, separators, back-to-top button)
+     FR: Filets du footer — brand-surface à 30% (cercles sociaux, badges de
+         paiement, séparateurs, bouton retour en haut) */
+  --color-footer-border: rgba(245, 250, 252, 0.3);
+  /* Watermark décoratif : blanc à 5% d'opacité
+     EN: Decorative watermark — white at 5% opacity (giant brand signature)
+     FR: Watermark décoratif — blanc à 5% (signature géante du nom) */
+  --color-footer-watermark: rgba(255, 255, 255, 0.05);
 
   /* ─────────── NEUTRES ─────────── */
   --color-neutral-900: #0E2A38;
@@ -71,13 +81,47 @@ body {
   --color-base-black: #000000;
 
   /* ─────────── ACTIONS & ÉTATS ─────────── */
+  /* ACTIONS & STATES */
   --color-action-primary: #1D7BAC;
   --color-action-primary-hover: #196C97;
   --color-action-primary-active: #165F86;
+  --color-action-on-primary: #FFFFFF;
+  --color-action-secondary: #4FB5E0;
+  --color-action-disabled: rgba(29, 123, 172, 0.4);
+  --color-focus-ring: #1D7BAC;
+
   --color-danger: #C53030;
   --color-danger-hover: #AD2A2A;
+  --color-danger-active: #992525;
+  --color-danger-on: #FFFFFF;
+
   --color-success: #1E7D4F;
+  --color-success-hover: #1A6E45;
+  --color-success-active: #17613D;
+  --color-success-on: #FFFFFF;
+
   --color-warning: #92400E;
+  --color-warning-hover: #80380C;
+  --color-warning-active: #71310A;
+  --color-warning-on: #FFFFFF;
+
+  /* ─────────── FONDS PÂLES DES BADGES STATUT ─────────── */
+  /* PALE BACKGROUNDS FOR STATUS BADGES (GUIDE.md B.4 — carte commande) */
+  /* Commande expédiée (ambre pâle) · Shipped order (pale amber) */
+  --color-warning-surface: #FEF3C7;
+  /* Commande livrée (vert pâle) · Completed order (pale green) */
+  --color-success-surface: #D1FAE5;
+  /* Commande annulée (rouge pâle) · Cancelled order (pale red) */
+  --color-danger-surface: #FEE2E2;
+
+  /* ─────────── TOKENS SÉMANTIQUES (alias) ─────────── */
+  /* SEMANTIC TOKENS (aliases) — utilisés directement par les composants */
+  --color-text-primary: #0E2A38;
+  /* = neutral-900 */
+  --color-text-secondary: #3D5A66;
+  /* = neutral-700 */
+  --color-text-muted: #6C8891;
+  /* = neutral-500 */
 
   /* ─────────── FONDS & BORDURES ─────────── */
   --color-bg-page: #F4F8F9;
@@ -85,10 +129,77 @@ body {
   --color-bg-tint: #EBF6FB;
   --color-border-default: #D6E2E6;
   --color-border-subtle: #DCE9EE;
+  --color-border-strong: #0E2A38;
 
   /* ─────────── TYPOGRAPHIE (VERSION PREMIUM) ─────────── */
   --font-heading: var(--font-cormorant), Georgia, serif;
   --font-body: var(--font-manrope), -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* ─────────── STYLES TYPOGRAPHIQUES ─────────── */
+  /* TYPOGRAPHY TEXT STYLES
+     Format Tailwind 4 : --text-{name} + --text-{name}--{property}
+     Génère les classes : text-h1, text-h2, text-body-l, etc. */
+
+  --text-h1: 64px;
+  --text-h1--line-height: 70px;
+  --text-h1--letter-spacing: -1.92px;
+  --text-h1--font-weight: 400;
+
+  --text-h2: 52px;
+  --text-h2--line-height: 58px;
+  --text-h2--letter-spacing: -1.56px;
+  --text-h2--font-weight: 400;
+
+  --text-h3: 40px;
+  --text-h3--line-height: 48px;
+  --text-h3--letter-spacing: -1.2px;
+  --text-h3--font-weight: 400;
+
+  --text-h4: 32px;
+  --text-h4--line-height: 38px;
+  --text-h4--letter-spacing: -0.64px;
+  --text-h4--font-weight: 400;
+
+  --text-h5: 26px;
+  --text-h5--line-height: 32px;
+  --text-h5--letter-spacing: -0.39px;
+  --text-h5--font-weight: 400;
+
+  --text-h6: 20px;
+  --text-h6--line-height: 26px;
+  --text-h6--letter-spacing: -0.3px;
+  --text-h6--font-weight: 400;
+
+  --text-body-xl: 18px;
+  --text-body-xl--line-height: 26px;
+  --text-body-xl--font-weight: 400;
+
+  --text-body-l: 16px;
+  --text-body-l--line-height: 24px;
+  --text-body-l--font-weight: 400;
+
+  --text-body-m: 14px;
+  --text-body-m--line-height: 20px;
+  --text-body-m--font-weight: 400;
+
+  --text-body-s: 12px;
+  --text-body-s--line-height: 16px;
+  --text-body-s--font-weight: 400;
+
+  /* Watermark géant du footer (GUIDE.md A.2.2) — taille par breakpoint.
+     EN: Giant footer watermark (GUIDE.md A.2.2) — per-breakpoint size:
+         desktop 260px / tablet 140px / mobile 84px, fluid line-height.
+     FR: Watermark géant du footer (GUIDE.md A.2.2) — taille par breakpoint :
+         desktop 260px / tablette 140px / mobile 84px, interligne fluide. */
+  --text-watermark-desktop: 260px;
+  --text-watermark-desktop--line-height: 0.9;
+  --text-watermark-desktop--font-weight: 400;
+  --text-watermark-tablet: 140px;
+  --text-watermark-tablet--line-height: 0.9;
+  --text-watermark-tablet--font-weight: 400;
+  --text-watermark-mobile: 84px;
+  --text-watermark-mobile--line-height: 0.9;
+  --text-watermark-mobile--font-weight: 400;
 
   /* ─────────── RAYONS ─────────── */
   --radius-sm: 8px;
@@ -98,6 +209,7 @@ body {
   --radius-full: 9999px;
 
   /* ─────────── ESPACEMENTS ─────────── */
+  /* ─────────── SPACING ───────────*/
   --space-2xs: 4px;
   --space-xs: 8px;
   --space-sm: 10px;
@@ -111,6 +223,61 @@ body {
   --space-6xl: 72px;
   --space-7xl: 80px;
   --space-8xl: 96px;
+  --space-9xl: 140px;
+
+  /* ─────────── RESPONSIVE SPACING ─────────── */
+  --space-mobile-h: 20px;
+  --space-mobile-v: 48px;
+  --space-tablet: 56px;
+
+  /* ─────────── DURÉES D'ANIMATION ─────────── */
+  /* ANIMATION DURATIONS */
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 400ms;
+  --duration-xslow: 800ms;
+
+  /* ─────────── COURBES D'ACCÉLÉRATION ─────────── */
+  /* EASING CURVES */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-linear: linear;
+
+  /* ─────────── REVEAL ─────────── */
+  --anim-reveal-offset: 24px;
+
+  /* ─────────── OMBRES / ÉLÉVATION ─────────── */
+  /* SHADOWS / ELEVATION
+     EN: Card elevation (ANIMATIONS.md §3.3) — soft neutral-900 (#0E2A38) tints.
+     FR: Élévation des cartes (ANIMATIONS.md §3.3) — teintes douces neutral-900 (#0E2A38). */
+  --shadow-card: 0 2px 8px rgba(14, 42, 56, 0.08);
+  --shadow-card-hover: 0 12px 28px rgba(14, 42, 56, 0.14);
+
+  /* ─────────── DÉGRADÉS ─────────── */
+  /* GRADIENTS
+     EN: Bottom-anchored dark vertical gradient — keeps white text legible over
+         a light image (Hero §1) while leaving the top of the image crisp.
+         Two strengths: base = tablet/desktop (text sits in the lower half);
+         -mobile = full overlay (the text block fills the shorter mobile hero).
+     FR: Dégradé vertical sombre ancré en bas — garantit la lisibilité du texte
+         blanc sur une image claire (Hero §1) tout en gardant le haut de l'image net.
+         Deux intensités : base = tablette/desktop (texte dans la moitié basse) ;
+         -mobile = voile plein (le bloc texte remplit le hero mobile, plus court). */
+  --gradient-overlay-bottom: linear-gradient(
+    to top,
+    rgba(14, 42, 56, 0.85) 0%,
+    rgba(14, 42, 56, 0.74) 32%,
+    rgba(14, 42, 56, 0.62) 55%,
+    rgba(14, 42, 56, 0.3) 72%,
+    rgba(14, 42, 56, 0.06) 86%,
+    rgba(14, 42, 56, 0) 100%
+  );
+  --gradient-tile-overlay: linear-gradient(
+    to top,
+    rgba(14, 42, 56, 0.55) 0%,
+    rgba(14, 42, 56, 0.25) 55%,
+    rgba(14, 42, 56, 0) 100%
+  );
 }
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -129,7 +296,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Titres : toujours en Cormorant Garamond + légèrement resserrés */
+/* Titres : toujours en Cormorant Garamond + légèrement resserrés.
+   EN: Weight aligned on DESIGN.md (§ 2 Typography = 400) so heading tags and
+       the text-h* token classes render identically. text-wrap: balance avoids
+       single-word orphan lines on multi-line titles (progressive enhancement).
+   FR: Poids aligné sur DESIGN.md (§ 2 Typographie = 400) pour que les balises
+       de titre et les classes tokens text-h* rendent identiquement.
+       text-wrap: balance évite les lignes orphelines d'un seul mot sur les
+       titres multi-lignes (amélioration progressive). */
 h1,
 h2,
 h3,
@@ -138,5 +312,72 @@ h5,
 h6 {
   font-family: var(--font-heading);
   letter-spacing: -0.02em;
-  font-weight: 500;
+  font-weight: 400;
+  text-wrap: balance;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ANIMATIONS GLOBALES — voir ANIMATIONS.md
+   GLOBAL ANIMATIONS — see ANIMATIONS.md
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* EN: Marquee loop (ANIMATIONS.md § 4) — translateX 0 → -50% on duplicated
+   content, linear easing, ~28 s per loop (documented rhythm).
+   FR: Boucle marquee (ANIMATIONS.md § 4) — translateX 0 → -50% sur contenu
+   dupliqué, easing linéaire, ~28 s par boucle (rythme documenté). */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 28s var(--ease-linear) infinite;
+  will-change: transform;
+}
+
+/* EN: Pause on hover (decision D-32 extended) — only on hover-capable devices
+   FR: Pause au survol (décision D-32 étendue) — uniquement sur les appareils avec survol */
+@media (hover: hover) {
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+}
+
+/* EN: Pause when off-screen (rule 2 — IntersectionObserver driven, set by JS)
+   FR: Pause hors écran (règle 2 — piloté par IntersectionObserver, posé en JS) */
+.animate-marquee[data-paused="true"] {
+  animation-play-state: paused;
+}
+
+/* EN: Word fade for the rotating search placeholder (GUIDE.md A.1 — fondu --duration-slow)
+   FR: Fondu du mot rotatif du placeholder de recherche (GUIDE.md A.1 — fondu --duration-slow) */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--duration-slow) var(--ease-out);
+}
+
+/* EN: Reduced motion — marquee becomes a static banner (ANIMATIONS.md § 4),
+   fades become instant (rule 4.6)
+   FR: Mouvement réduit — le marquee devient un bandeau statique (ANIMATIONS.md § 4),
+   les fondus deviennent instantanés (règle 4.6) */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+
+  .animate-fade-in {
+    animation: none;
+  }
 }
