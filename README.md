@@ -20,7 +20,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-Headless-21759B?logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![WooCommerce](https://img.shields.io/badge/WooCommerce-9-96588A?logo=woocommerce&logoColor=white)](https://woocommerce.com/)
 [![GraphQL](https://img.shields.io/badge/GraphQL-WooGraphQL-E10098?logo=graphql&logoColor=white)](https://www.wpgraphql.com/)
-[![License](https://img.shields.io/badge/Licence-Propri%C3%A9taire-lightgrey)](#licence)
+[![License](https://img.shields.io/badge/Licence-OpenSource-lightgrey)](#licence)
 
 </div>
 
@@ -542,7 +542,7 @@ L'ensemble du style repose sur des **tokens CSS** déclarés une seule fois dans
 
 ## Auteur
 
-**Donald Adjaho** — conception, développement frontend et intégration headless.
+**Donald Adjaho** — Projet d'apprentissage en conception, développement frontend et intégration headless.
 
 | Canal | Lien |
 |:--|:--|
